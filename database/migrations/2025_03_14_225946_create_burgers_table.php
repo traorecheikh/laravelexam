@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('burgers', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->decimal('prix', 8, 2);
+            $table->float('prix', 8, 2);
             $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->integer('stock')->default(0);
