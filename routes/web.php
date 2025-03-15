@@ -32,15 +32,17 @@ Route::group(['middleware' => 'auth'], function () {
     // Commande Validation Routes
     Route::post('/commande/{commande}/validate', [CommandeController::class, 'validateCommande'])->name('commande.validate');
 
+    Route::post('/commande/{commande}/finalize', [CommandeController::class, 'finalizeCommande'])->name('commande.finalize');
+
     // Admin Routes (Role-based middleware)
-    Route::group(['middleware' => 'role:gestionnaire'], function () {
+        Route::get('commande/{commande}', [CommandeController::class, 'show'])->name('commande.show');
         Route::get('commandes', [CommandeController::class, 'index'])->name('commande.index');
         Route::put('commande/{commande}/annuler', [CommandeController::class, 'annuler'])->name('commande.annuler');
         Route::put('commande/{commande}/statut', [CommandeController::class, 'updateStatut'])->name('commande.updateStatut');
         Route::post('paiement', [PaiementController::class, 'store'])->name('paiement.enregistrer');
-    });
+    
 });
 
 // Authentication Routes
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
