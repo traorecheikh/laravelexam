@@ -139,137 +139,140 @@
 </head>
 
 <body>
-    <div class="header clearfix">
-        <div class="company-details">
-            <h2>ISI Burger</h2>
-            <p>12 Avenue de la Liberté<br>
-                Dakar, Sénégal<br>
-                Tél: +221 33 123 45 67<br>
-                Email: contact@isiburger.sn<br>
-                Site web: www.isiburger.sn<br>
-                NINEA: 123456789</p>
-        </div>
-        <div>
-            <img class="logo"
-                src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('storage/images/logo.png'))) }}"
-                alt="Logo ISI Burger">
-        </div>
+<div class="header clearfix">
+    <div class="company-details">
+        <h2>ISI Burger</h2>
+        <p>12 Avenue de la Liberté<br>
+            Dakar, Sénégal<br>
+            Tél: +221 781706184<br>
+            Email: contact@isiburger.sn<br>
+            Site web: www.isiburger.sn<br>
+            NINEA: 123456789</p>
     </div>
+    <div>
+        <img class="logo"
+             src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('storage/images/logo.png'))) }}"
+             alt="Logo ISI Burger">
+    </div>
+</div>
 
-    <h1 class="invoice-title">FACTURE</h1>
+<h1 class="invoice-title">FACTURE</h1>
 
-    <div class="clearfix">
-        <div class="client-details">
-            <h3>Informations Client</h3>
-            <p><strong>Nom:</strong> {{ $commande->user->name }}<br>
+<div class="clearfix">
+    <div class="client-details">
+        <h3>Informations Client</h3>
+        <p><strong>Nom:</strong> {{ $commande->user->name }}<br>
+            @if($commande->adresse_livraison)
                 <strong>Adresse:</strong> {{ $commande->adresse_livraison }}<br>
-                <strong>Téléphone:</strong> {{ $commande->user->telephone }}<br>
-                <strong>Email:</strong> {{ $commande->user->email }}<br>
-                <strong>Client depuis:</strong> {{ $commande->user->created_at->format('d/m/Y') }}
-            </p>
-        </div>
-
-        <div class="invoice-details">
-            <h3>Détails de la Facture</h3>
-            <p><span class="invoice-id">Facture
-                    #{{ $commande->reference_facture ?? 'F-' . str_pad($commande->id, 6, '0', STR_PAD_LEFT) }}</span><br>
-                <strong>Commande #:</strong> {{ $commande->id }}<br>
-                <strong>Date de commande:</strong> {{ $commande->created_at->format('d/m/Y à H:i') }}<br>
-                <strong>Mode de paiement:</strong> {{ $commande->mode_paiement }}<br>
-                <strong>Référence paiement:</strong> {{ $commande->reference_paiement ?? 'N/A' }}<br>
-                <strong>Statut:</strong>
-                @if ($commande->statut == 'Payée')
-                    <span class="status-paid">{{ $commande->statut }}</span>
-                @elseif($commande->statut == 'En attente')
-                    <span class="status-pending">{{ $commande->statut }}</span>
-                @elseif($commande->statut == 'Annulée')
-                    <span class="status-cancelled">{{ $commande->statut }}</span>
-                @else
-                    {{ $commande->statut }}
-                @endif
-            </p>
-        </div>
-    </div>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Produit</th>
-                <th>Description</th>
-                <th>Quantité</th>
-                <th>Prix unitaire</th>
-                <th>Sous-total</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($commande->burgers as $produit)
-                <tr>
-                    <td>{{ $produit->nom }}</td>
-                    <td>{{ $produit->description }}</td>
-                    <td>{{ $produit->pivot->quantite }}</td>
-                    <td>{{ number_format($produit->prix, 0, '.', ' ') }} CFA</td>
-                    <td>{{ number_format($produit->prix * $produit->pivot->quantite, 0, '.', ' ') }} CFA</td>
-                </tr>
-            @endforeach
-
-            @if ($commande->burgers->count() > 0)
-                @foreach ($commande->burgers as $supplement)
-                    <tr>
-                        <td>Supplément: {{ $supplement->nom }}</td>
-                        <td>{{ $supplement->description }}</td>
-                        <td>{{ $supplement->pivot->quantite }}</td>
-                        <td>{{ number_format($supplement->prix, 0, '.', ' ') }} CFA</td>
-                        <td>{{ number_format($supplement->prix * $supplement->pivot->quantite, 0, '.', ' ') }} CFA</td>
-                    </tr>
-                @endforeach
             @endif
-        </tbody>
-    </table>
-
-    <div class="total-section">
-        <p class="total-line"><strong>Sous-total:</strong> {{ number_format($commande->sous_total, 0, '.', ' ') }} CFA
+            <strong>Téléphone:</strong> {{ $commande->user->telephone }}<br>
+            <strong>Email:</strong> {{ $commande->user->email }}<br>
+            <strong>Client depuis:</strong> {{ $commande->user->created_at->format('d/m/Y') }}
         </p>
-        <p class="total-line"><strong>Frais de livraison:</strong>
-            {{ number_format($commande->frais_livraison, 0, '.', ' ') }} CFA</p>
-        @if ($commande->code_promo)
-            <p class="total-line"><strong>Code promo ({{ $commande->code_promo }}):</strong>
-                -{{ number_format($commande->montant_reduction, 0, '.', ' ') }} CFA</p>
-        @endif
-        <p class="total-line"><strong>TVA (18%):</strong> {{ number_format($commande->montant_tva, 0, '.', ' ') }} CFA
+    </div>
+
+    <div class="invoice-details">
+        <h3>Détails de la Facture</h3>
+        <p><span class="invoice-id">Facture
+                    #{{ $commande->reference_facture ?? 'F-' . str_pad($commande->id, 6, '0', STR_PAD_LEFT) }}</span><br>
+            <strong>Commande #:</strong> {{ $commande->id }}<br>
+            <strong>Date de commande:</strong> {{ $commande->created_at->format('d/m/Y à H:i') }}<br>
+            <strong>Mode de paiement:</strong> {{ $commande->mode_paiement }}<br>
+            <strong>Référence paiement:</strong> {{ $commande->reference_paiement ?? 'N/A' }}<br>
+            <strong>Statut:</strong>
+            @if ($commande->statut == 'Payée')
+                <span class="status-paid">{{ $commande->statut }}</span>
+            @elseif($commande->statut == 'En attente')
+                <span class="status-pending">{{ $commande->statut }}</span>
+            @elseif($commande->statut == 'Annulée')
+                <span class="status-cancelled">{{ $commande->statut }}</span>
+            @else
+                {{ $commande->statut }}
+            @endif
         </p>
-        <p class="grand-total"><strong>TOTAL:</strong> {{ number_format($commande->total, 0, '.', ' ') }} CFA</p>
     </div>
+</div>
 
-    <div class="payment-info">
-        <h3>Informations de paiement</h3>
-        <p>Veuillez effectuer votre règlement par virement bancaire ou via Orange Money/Wave:</p>
-        <p><strong>Coordonnées bancaires:</strong><br>
-            Banque: CBAO Groupe Attijariwafa Bank<br>
-            IBAN: SN01 1234 5678 9012 3456 7890<br>
-            BIC/SWIFT: CBAOSNDA</p>
+<table>
+    <thead>
+    <tr>
+        <th>Produit</th>
+        <th>Description</th>
+        <th>Quantité</th>
+        <th>Prix unitaire</th>
+        <th>Sous-total</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach ($commande->burgers as $produit)
+        <tr>
+            <td>{{ $produit->nom }}</td>
+            <td>{{ $produit->description }}</td>
+            <td>{{ $produit->pivot->quantite }}</td>
+            <td>{{ number_format($produit->prix, 0, '.', ' ') }} CFA</td>
+            <td>{{ number_format($produit->prix * $produit->pivot->quantite, 0, '.', ' ') }} CFA</td>
+        </tr>
+    @endforeach
 
-        <p><strong>Mobile Money:</strong><br>
-            Orange Money: +221 78 277 55 79<br>
-            Wave: +221 78 170 61 84</p>
-    </div>
+    @if ($commande->burgers->count() > 0)
+        @foreach ($commande->burgers as $supplement)
+            <tr>
+                <td>Supplément: {{ $supplement->nom }}</td>
+                <td>{{ $supplement->description }}</td>
+                <td>{{ $supplement->pivot->quantite }}</td>
+                <td>{{ number_format($supplement->prix, 0, '.', ' ') }} CFA</td>
+                <td>{{ number_format($supplement->prix * $supplement->pivot->quantite, 0, '.', ' ') }} CFA</td>
+            </tr>
+        @endforeach
+    @endif
+    </tbody>
+</table>
 
-    <div class="notes">
-        <h3>Notes</h3>
-        <p>Merci de votre confiance! Votre satisfaction est notre priorité.</p>
-        <p>Cette facture est valable pendant 30 jours. Pour toute question concernant cette facture, veuillez contacter
-            notre service client au +221 33 123 45 67 ou par email à facturation@isiburger.sn</p>
-    </div>
+<div class="total-section">
+    <p class="total-line"><strong>Sous-total:</strong> {{ number_format($commande->sous_total, 0, '.', ' ') }} CFA
+    </p>
+    <p class="total-line"><strong>Frais de livraison:</strong>
+        {{ number_format($commande->frais_livraison, 0, '.', ' ') }} CFA</p>
+    @if ($commande->code_promo)
+        <p class="total-line"><strong>Code promo ({{ $commande->code_promo }}):</strong>
+            -{{ number_format($commande->montant_reduction, 0, '.', ' ') }} CFA</p>
+    @endif
+    <p class="total-line"><strong>TVA (18%):</strong> {{ number_format($commande->montant_tva, 0, '.', ' ') }} CFA
+    </p>
+    <p class="grand-total"><strong>TOTAL:</strong> {{ number_format($commande->total, 0, '.', ' ') }} CFA</p>
+</div>
 
-    <div class="barcode">
-        <img src="data:image/png;base64,{{ generateBarcode($commande->reference_facture ?? 'F' . str_pad($commande->id, 6, '0', STR_PAD_LEFT)) }}"
-            alt="Barcode">
-    </div>
+<div class="payment-info">
+    <h3>Informations de paiement</h3>
+    <p>Veuillez effectuer votre règlement par virement bancaire ou via Orange Money/Wave ou en especes:</p>
+    <p><strong>Coordonnées bancaires:</strong><br>
+        Banque: CBAO Groupe Attijariwafa Bank<br>
+        IBAN: SN01 1234 5678 9012 3456 7890<br>
+        BIC/SWIFT: CBAOSNDA</p>
 
-    <div class="footer">
-        <p>ISI Burger SARL - RC: SN-DKR-2020-B-1234 - NINEA: 123456789</p>
-        <p>12 Avenue de la Liberté, Dakar, Sénégal - Tél: +221 78 170 61 84 - Email: contact@isiburger.sn</p>
-        <p>Facture générée le {{ now()->format('d/m/Y à H:i') }}</p>
-    </div>
+    <p><strong>Mobile Money:</strong><br>
+        Orange Money: +221 78 277 55 79<br>
+        Wave: +221 78 170 61 84</p>
+</div>
+
+<div class="notes">
+    <h3>Notes</h3>
+    <p>Merci de votre confiance! Votre satisfaction est notre priorité.</p>
+    <p>Cette facture est valable pendant 14 jours. Pour toute question concernant cette facture, veuillez contacter
+        notre service client au +221 33 865 25 17 ou par email à facturation@isiburger.sn</p>
+</div>
+
+<div class="barcode">
+    <img
+        src="data:image/png;base64,{{ generateBarcode($commande->reference_facture ?? 'F' . str_pad($commande->id, 6, '0', STR_PAD_LEFT)) }}"
+        alt="Barcode">
+</div>
+
+<div class="footer">
+    <p>ISI Burger SARL - RC: SN-DKR-2020-B-1234 - NINEA: 123456789</p>
+    <p>12 Avenue de la Liberté, Dakar, Sénégal - Tél: +221 78 170 61 84 - Email: contact@isiburger.sn</p>
+    <p>Facture générée le {{ now()->format('d/m/Y à H:i') }}</p>
+</div>
 </body>
 
 </html>
