@@ -23,7 +23,7 @@ class PanierController extends Controller
         if (!$panier) {
             return redirect()->route('burgers.index')->with('error', 'Votre panier est vide.');
         }
-            // dd($panier);
+        // dd($panier);
         // Create a new order (Commande)
         $commande = Commande::create([
             'user_id' => auth()->id(),
@@ -52,7 +52,7 @@ class PanierController extends Controller
         foreach ($panier as $burgerId => $quantity) {
             $burger = Burger::find($burgerId);
             $total += $burger->prix * $quantity['quantite'];
-            
+
         }
         return $total;
     }
@@ -60,18 +60,30 @@ class PanierController extends Controller
     // Ajouter un burger au panier
     public function ajouter(Request $request)
     {
+        $request->validate([
+            'burger_id' => 'required|exists:burgers,id',
+            'quantite' => 'required|integer|min:1'
+        ]);
+
         $burger = Burger::findOrFail($request->burger_id);
 
         $panier = session()->get('panier', []);
-        $panier[$burger->id] = [
-            "nom" => $burger->nom,
-            "prix" => $burger->prix,
-            "quantite" => ($panier[$burger->id]['quantite'] ?? 0) + 1
-        ];
+
+        // If burger already exists, update quantity, otherwise add it
+        if (isset($panier[$burger->id])) {
+            $panier[$burger->id]['quantite'] += $request->quantite;
+        } else {
+            $panier[$burger->id] = [
+                "nom" => $burger->nom,
+                "prix" => $burger->prix,
+                "quantite" => $request->quantite
+            ];
+        }
 
         session()->put('panier', $panier);
         return redirect()->route('panier.index')->with('success', 'Burger ajouté au panier !');
     }
+
 
     // Supprimer un burger du panier
     public function supprimer(Request $request)
