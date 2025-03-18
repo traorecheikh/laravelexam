@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Commande;
 use App\Notifications\OrderConfirmed;
 use Illuminate\Http\Request;
-use Illuminate\Notifications\Notification;
 
 class CommandeController extends Controller
 {
@@ -52,8 +51,8 @@ class CommandeController extends Controller
     public function finalizeCommande(Request $request, Commande $commande)
     {
 
-        $commande->statut = 'payee';
-        
+        $commande->statut = 'prete';
+
         $commande->user->notify(new OrderConfirmed($commande));
 
         $commande->save();
