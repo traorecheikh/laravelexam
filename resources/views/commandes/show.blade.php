@@ -10,7 +10,7 @@
         <h3>Articles dans la commande :</h3>
         <ul>
             @foreach ($commande->burgers as $burger)
-                <li>{{ $burger->nom }} - {{ $burger->pivot->quantite }} x {{ number_format($burger->prix, 0,'.','.') }}
+                <li>{{ $burger->nom }} - {{ $burger->pivot->quantite }} x {{ number_format($burger->prix, 0,'.','.') FCFA}}
                     FCFA
                 </li>
             @endforeach
