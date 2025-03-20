@@ -4,10 +4,18 @@ namespace App\Jobs;
 
 use App\Models\Commande;
 use App\Models\Paiement;
+use App\Notifications\OrderPaid;
 use Carbon\Carbon;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
-class CreatePaiement extends Job
+class CreatePaiement implements ShouldQueue
 {
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
     protected $commande;
 
     /**
@@ -28,12 +36,11 @@ class CreatePaiement extends Job
      */
     public function handle()
     {
-        $commande = $this->commande;
-        $date = Carbon::now();
         Paiement::create([
-            'commande_id' => $commande->id,
-            'created_at' => $date,
-            'amount' => $commande->total,
+            'commande_id' => $this->commande->id,
+            'date_paiement' => Carbon::now(),
+            'montant' => $this->commande->total,
         ]);
+        $this->commande->user->notify(new OrderPaid($this->commande));
     }
 }

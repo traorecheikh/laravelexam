@@ -76,7 +76,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Job Batching
+    | CreatePaiement Batching
     |--------------------------------------------------------------------------
     |
     | The following options configure the database and table that store job

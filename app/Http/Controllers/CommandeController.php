@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\CreatePaiement;
 use App\Models\Commande;
+use App\Models\Paiement;
 use App\Notifications\OrderConfirmed;
+use App\Notifications\OrderPaid;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CommandeController extends Controller
@@ -53,7 +55,13 @@ class CommandeController extends Controller
         $commande->statut = 'prete';
 
         $commande->user->notify(new OrderConfirmed($commande));
-        CreatePaiement::dispatch($commande)->delay(now()->addMinutes(1));
+        sleep(30);
+        Paiement::create([
+            'commande_id' => $commande->id,
+            'date_paiement' => Carbon::now(),
+            'montant' => $commande->total,
+        ]);
+        $commande->user->notify(new OrderPaid($commande));
         $commande->statut = 'payee';
         $commande->save();
 
