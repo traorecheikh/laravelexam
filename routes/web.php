@@ -1,12 +1,12 @@
 <?php
 
+use App\Http\Controllers\BurgerController;
+use App\Http\Controllers\CommandeController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PaiementController;
+use App\Http\Controllers\PanierController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\BurgerController;
-use App\Http\Controllers\PanierController;
-use App\Http\Controllers\CommandeController;
-use App\Http\Controllers\PaiementController;
 
 Route::resource('burgers', BurgerController::class);
 
@@ -35,12 +35,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/commande/{commande}/finalize', [CommandeController::class, 'finalizeCommande'])->name('commande.finalize');
 
     // Admin Routes (Role-based middleware)
-        Route::get('commande/{commande}', [CommandeController::class, 'show'])->name('commande.show');
-        Route::get('commandes', [CommandeController::class, 'index'])->name('commande.index');
-        Route::put('commande/{commande}/annuler', [CommandeController::class, 'annuler'])->name('commande.annuler');
-        Route::put('commande/{commande}/statut', [CommandeController::class, 'updateStatut'])->name('commande.updateStatut');
-        Route::post('paiement', [PaiementController::class, 'store'])->name('paiement.enregistrer');
-    
+    Route::get('commande/{commande}', [CommandeController::class, 'show'])->name('commande.show');
+    Route::get('commandes', [CommandeController::class, 'index'])->name('commande.index');
+    Route::put('commande/{commande}/annuler', [CommandeController::class, 'annuler'])->name('commande.annuler');
+    Route::put('commande/{commande}/statut', [CommandeController::class, 'updateStatut'])->name('commande.updateStatut');
+    Route::post('paiement', [PaiementController::class, 'store'])->name('paiement.enregistrer');
+
 });
 
 // Authentication Routes

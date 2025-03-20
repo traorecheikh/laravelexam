@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\CreatePaiement;
 use App\Models\Commande;
 use App\Notifications\OrderConfirmed;
 use Illuminate\Http\Request;
@@ -10,11 +11,9 @@ class CommandeController extends Controller
 {
     public function index()
     {
-        // If the user is a gestionnaire, they can see all commandes.
         if (auth()->user()->hasRole('gestionnaire')) {
             $commandes = Commande::latest()->paginate(10);
         } else {
-            // Clients should only see their own commandes.
             $commandes = Commande::where('user_id', auth()->id())->latest()->paginate(10);
         }
 
@@ -54,7 +53,8 @@ class CommandeController extends Controller
         $commande->statut = 'prete';
 
         $commande->user->notify(new OrderConfirmed($commande));
-
+        CreatePaiement::dispatch($commande)->delay(now()->addMinutes(1));
+        $commande->statut = 'payee';
         $commande->save();
 
         return redirect()->route('commande.index')->with('success', 'Commande validée et payée.');

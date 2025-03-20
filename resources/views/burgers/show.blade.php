@@ -16,7 +16,7 @@
                 <h1 class="mb-3">{{ $burger->nom }}</h1>
                 <p class="lead">{{ $burger->description }}</p>
                 <p class="h4 text-primary">
-                    <strong>Prix :</strong> {{ number_format($burger->prix, 2) }} €
+                    <strong>Prix :</strong> {{ number_format($burger->prix,0,'.','.') }} CFA
                 </p>
                 <!-- Quantity Selection and Form -->
                 @cannot('gerer burgers')

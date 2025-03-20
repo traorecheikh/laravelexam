@@ -5,12 +5,14 @@
         <h1>Commande Détails</h1>
 
         <p><strong>Statut:</strong> {{ $commande->statut }}</p>
-        <p><strong>Total:</strong> {{ number_format($commande->total, 2) }} €</p>
+        <p><strong>Total:</strong> {{ number_format($commande->total, 0,'.','.') }} FCFA</p>
 
         <h3>Articles dans la commande :</h3>
         <ul>
             @foreach ($commande->burgers as $burger)
-                <li>{{ $burger->nom }} - {{ $burger->pivot->quantite }} x {{ number_format($burger->prix, 2) }} €</li>
+                <li>{{ $burger->nom }} - {{ $burger->pivot->quantite }} x {{ number_format($burger->prix, 0,'.','.') }}
+                    FCFA
+                </li>
             @endforeach
         </ul>
 

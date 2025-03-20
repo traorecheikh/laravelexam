@@ -1,3 +1,5 @@
+<link href="{{ asset('form.css') }}" rel="stylesheet">
+
 <div class="form-group">
     <label for="nom">Nom</label>
     <input type="text" name="nom" id="nom" class="form-control" value="{{ old('nom', $burger->nom) }}" required>
@@ -28,4 +30,25 @@
         <img src="{{ asset('storage/' . $burger->image) }}" alt="{{ $burger->nom }}" class="img-thumbnail mt-2"
              width="150">
     @endif
+</div>
+
+<div class="form-group">
+    <label for="categorie">Catégorie</label>
+    <select name="categorie" id="categorie" class="form-control" required>
+        @php
+            $categories = [
+                'Cheese Burger',
+                'Panini Burger',
+                'Brochette Burger',
+                'Fast Food Burger',
+                'Spicy Burger',
+                'Gourmet Burger'
+            ];
+        @endphp
+        @foreach($categories as $category)
+            <option value="{{ $category }}" {{ old('categorie', $burger->categorie) == $category ? 'selected' : '' }}>
+                {{ $category }}
+            </option>
+        @endforeach
+    </select>
 </div>

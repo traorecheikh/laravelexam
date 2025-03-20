@@ -1,0 +1,281 @@
+/* layout.css */
+
+/* Custom Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Navbar Styling */
+.navbar {
+    background: linear-gradient(to right, #1d3557, #457b9d) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+    padding: 0.8rem 1rem;
+}
+
+.navbar-brand {
+    font-family: 'Oswald', sans-serif;
+    color: #fff !important;
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: 0.03em;
+    padding: 0.2rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+/* Nav Links */
+.navbar .nav-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    border-radius: 4px;
+    transition: all 0.2s;
+    margin: 0 0.2rem;
+}
+
+.navbar .nav-link:hover, .navbar .nav-link:focus {
+    color: #fff !important;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Active nav item */
+.navbar .nav-item.active .nav-link {
+    color: #fff !important;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.dropdown-item {
+    padding: 0.7rem 1.2rem;
+    color: #333;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: #f1faee;
+    color: #1d3557;
+}
+
+/* Shopping Cart Badge */
+.navbar .badge {
+    background-color: #e63946 !important;
+    position: relative;
+    top: -5px;
+    margin-left: 3px;
+    padding: 0.25em 0.5em;
+    font-size: 0.75em;
+    font-weight: 700;
+    border-radius: 20px;
+    transition: all 0.2s;
+}
+
+.navbar .nav-link:hover .badge {
+    transform: scale(1.1);
+}
+
+/* Main Content Area */
+main.py-4 {
+    flex-grow: 1;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+}
+
+/* Container */
+.container {
+    padding: 0 1.5rem;
+    max-width: 1200px;
+}
+
+/* Buttons */
+.btn {
+    border-radius: 8px;
+    padding: 0.5rem 1.25rem;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background-color: #457b9d;
+    border-color: #457b9d;
+}
+
+.btn-primary:hover {
+    background-color: #1d3557;
+    border-color: #1d3557;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btn-danger {
+    background-color: #e63946;
+    border-color: #e63946;
+}
+
+.btn-danger:hover {
+    background-color: #d32f2f;
+    border-color: #d32f2f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Form Control Overrides */
+.form-control {
+    border-radius: 8px;
+    padding: 0.65rem 1rem;
+    border: 1px solid #ddd;
+    transition: all 0.3s;
+}
+
+.form-control:focus {
+    border-color: #457b9d;
+    box-shadow: 0 0 0 0.2rem rgba(69, 123, 157, 0.25);
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s;
+    overflow: hidden;
+}
+
+.card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 1rem 1.5rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Alerts */
+.alert {
+    border: none;
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar-collapse {
+        background-color: #1d3557;
+        padding: 1rem;
+        border-radius: 0 0 8px 8px;
+        margin-top: 0.5rem;
+    }
+
+    .navbar .nav-link {
+        padding: 0.75rem 1rem !important;
+    }
+
+    .dropdown-menu {
+        background-color: rgba(255, 255, 255, 0.05);
+        box-shadow: none;
+    }
+
+    .dropdown-item {
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    .dropdown-item:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #fff;
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #457b9d;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #1d3557;
+}

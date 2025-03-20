@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class BurgerController extends Controller
 {
-    // Affiche le catalogue avec filtres optionnels
     public function index(Request $request)
     {
         $query = Burger::query();
@@ -26,7 +25,6 @@ class BurgerController extends Controller
         return view('burgers.index', compact('burgers'));
     }
 
-    // Affiche le détail d'un burger
     public function show(Burger $burger)
     {
         return view('burgers.show', compact('burger'));
@@ -54,7 +52,6 @@ class BurgerController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            // Optionally, delete the old image here
             $path = $request->file('image')->store('burgers', 'public');
             $validated['image'] = $path;
         }

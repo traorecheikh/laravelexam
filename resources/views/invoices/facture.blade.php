@@ -229,16 +229,8 @@
 </table>
 
 <div class="total-section">
-    <p class="total-line"><strong>Sous-total:</strong> {{ number_format($commande->sous_total, 0, '.', ' ') }} CFA
-    </p>
-    <p class="total-line"><strong>Frais de livraison:</strong>
-        {{ number_format($commande->frais_livraison, 0, '.', ' ') }} CFA</p>
-    @if ($commande->code_promo)
-        <p class="total-line"><strong>Code promo ({{ $commande->code_promo }}):</strong>
-            -{{ number_format($commande->montant_reduction, 0, '.', ' ') }} CFA</p>
-    @endif
-    <p class="total-line"><strong>TVA (18%):</strong> {{ number_format($commande->montant_tva, 0, '.', ' ') }} CFA
-    </p>
+    <p class="total-line"><strong>Frais de livraison:</strong> GRATUIT</p>
+
     <p class="grand-total"><strong>TOTAL:</strong> {{ number_format($commande->total, 0, '.', ' ') }} CFA</p>
 </div>
 

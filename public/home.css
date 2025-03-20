@@ -1,0 +1,343 @@
+/* home.css */
+
+/* Custom Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://images.unsplash.com/photo-1561758033-d89a9ad46330?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+.container {
+    padding: 2rem;
+    max-width: 1200px;
+}
+
+/* Typography */
+h1, h2, h3, h4 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+h1 {
+    color: #e63946;
+    margin-bottom: 1.5rem;
+    font-size: 3rem;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background-color: #e63946;
+    border-radius: 2px;
+}
+
+h2 {
+    color: #1d3557;
+    font-size: 2.2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    color: #457b9d;
+    font-size: 1.6rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
+}
+
+p {
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+/* Manager Dashboard */
+.manager-dashboard {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-top: 5px solid #e63946;
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background-color: #f1faee;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card strong {
+    display: block;
+    font-size: 1.2rem;
+    color: #1d3557;
+    margin-bottom: 0.5rem;
+}
+
+.stat-card span {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #e63946;
+}
+
+.chart-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+    height: 400px;
+}
+
+/* Welcome Section */
+.jumbotron {
+    background: linear-gradient(135deg, #e63946, #f1faee);
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.jumbotron::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background-image: url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3;
+    clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+}
+
+.jumbotron h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.jumbotron .lead {
+    font-size: 1.4rem;
+    font-weight: 300;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* About Section */
+.about-section {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.about-section ul {
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.about-section li {
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.about-section li::before {
+    content: '🍔';
+    position: absolute;
+    left: -1rem;
+    top: 0;
+}
+
+/* Specialties Section */
+.specialties-section {
+    background-color: #f8f9fa;
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+.specialties-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 150px;
+    height: 150px;
+    background-image: url('https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');
+    background-size: cover;
+    background-position: center;
+    border-radius: 0 0 15px 0;
+    opacity: 0.2;
+}
+
+/* Info Section */
+.info-section {
+    background-color: #1d3557;
+    color: white;
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.info-section strong {
+    color: #f1faee;
+}
+
+.info-section p:last-child {
+    margin-bottom: 0;
+}
+
+/* Call to Action */
+.cta-section {
+    background: linear-gradient(135deg, #457b9d, #1d3557);
+    color: white;
+    text-align: center;
+    padding: 3rem;
+    border-radius: 15px;
+    margin-top: 3rem;
+}
+
+.cta-section h3 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn-cta {
+    background-color: #e63946;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s;
+    box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3);
+}
+
+.btn-cta:hover {
+    background-color: #d32f2f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(230, 57, 70, 0.4);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+
+    .row {
+        flex-direction: column;
+    }
+
+    .col-md-6 {
+        width: 100%;
+        margin-bottom: 1.5rem;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .jumbotron h1 {
+        font-size: 2.8rem;
+    }
+}
+
+/* Chart.js customizations */
+canvas {
+    max-width: 100%;
+    height: auto !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #e63946;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #d32f2f;
+}
+
+/* Fancy hover effects */
+.hover-scale {
+    transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}

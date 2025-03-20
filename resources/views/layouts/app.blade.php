@@ -10,103 +10,160 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link href="{{asset('custom-app-layout.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url('/home') }}">
-                {{ config('app.name', 'Laravel') }}
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                <span class="navbar-toggler-icon"></span>
+    <header class="site-header">
+        <div class="header-container">
+            <div class="brand-section">
+                <img src="{{ asset('logo.png') }}" alt="Logo" class="site-logo">
+                <a href="{{ url('/home') }}" class="site-title">
+                    {{ config('app.name', 'Laravel') }}
+                </a>
+            </div>
+
+            <button class="menu-toggle" id="menuToggle">
+                <span class="menu-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('burgers.index') }}">Burgers</a>
-                    </li>
-                </ul>
-
-                <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ms-auto">
-                    @guest
-                        @if (Route::has('login'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                        @endif
-
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @endif
-                    @else
-                        @cannot('gerer burgers')
-                            <!-- Lien vers le Panier -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('panier.index') }}">
-                                    🛒 Panier
-                                    <span class="badge bg-danger">
-                                        {{ session('panier') ? count(session('panier')) : 0 }}
-                                    </span>
-                                </a>
-                            </li>
-                        @endcannot
-
-                        <!-- Menu Utilisateur -->
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }}
+            <nav class="main-navigation" id="mainNav">
+                <div class="nav-sections">
+                    <!-- Primary Navigation -->
+                    <ul class="primary-menu">
+                        <li class="menu-item">
+                            <a href="{{ route('burgers.index') }}" class="menu-link">
+                                <i class="fa-solid fa-burger"></i> Burgers
                             </a>
+                        </li>
+                    </ul>
 
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                {{-- <a class="dropdown-item" href="{{ route('profil') }}">Profil</a> --}}
-                                {{-- <a class="dropdown-item" href="{{ route('commandes.index') }}">Mes Commandes</a> --}}
+                    <!-- Account Navigation -->
+                    <ul class="account-menu">
+                        @guest
+                            @if (Route::has('login'))
+                                <li class="menu-item">
+                                    <a href="{{ route('login') }}" class="menu-link auth-link">
+                                        <i class="fa-solid fa-right-to-bracket"></i> {{ __('Login') }}
+                                    </a>
+                                </li>
+                            @endif
 
-                                @can('gerer commandes')
-                                    <a class="dropdown-item" href="{{ route('commande.index') }}">Toutes les
-                                        Commandes</a>
-                                @endcan
-                                @cannot('gerer commandes')
-                                    <a class="dropdown-item" href="{{ route('commande.index') }}">Mes Commandes</a>
+                            @if (Route::has('register'))
+                                <li class="menu-item">
+                                    <a href="{{ route('register') }}" class="menu-link auth-link">
+                                        <i class="fa-solid fa-user-plus"></i> {{ __('Register') }}
+                                    </a>
+                                </li>
+                            @endif
+                        @else
+                            @cannot('gerer burgers')
+                                <li class="menu-item cart-item">
+                                    <a href="{{ route('panier.index') }}" class="menu-link">
+                                        <i class="fa-solid fa-cart-shopping"></i>
+                                        <span
+                                            class="cart-count">{{ session('panier') ? count(session('panier')) : 0 }}</span>
+                                    </a>
+                                </li>
+                            @endcannot
 
-                                @endcannot
-
-                                <a class="dropdown-item">Profil</a>
-
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                            <li class="menu-item user-dropdown">
+                                <a href="#" class="menu-link user-menu-toggle">
+                                    <i class="fa-solid fa-circle-user"></i>
+                                    <span>{{ Auth::user()->name }}</span>
                                 </a>
+
+                                <ul class="dropdown-content">
+                                    @can('gerer commandes')
+                                        <li>
+                                            <a href="{{ route('commande.index') }}">
+                                                <i class="fa-solid fa-list-check"></i> Toutes les Commandes
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @cannot('gerer commandes')
+                                        <li>
+                                            <a href="{{ route('commande.index') }}">
+                                                <i class="fa-solid fa-receipt"></i> Mes Commandes
+                                            </a>
+                                        </li>
+                                    @endcannot
+
+                                    <li class="dropdown-divider"></li>
+
+                                    <li>
+                                        <a href="{{ route('logout') }}"
+                                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            <i class="fa-solid fa-power-off"></i> {{ __('Logout') }}
+                                        </a>
+                                    </li>
+                                </ul>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
-                            </div>
-                        </li>
-                    @endguest
-                </ul>
-            </div>
+                            </li>
+                        @endguest
+                    </ul>
+                </div>
+            </nav>
         </div>
-    </nav>
+    </header>
 
-    <main class="py-4">
-        @yield('content')
+    <main class="site-content">
+        <div class="content-container">
+            @yield('content')
+        </div>
     </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <p>&copy; {{ date('Y') }} {{ config('app.name', 'Laravel') }}. All rights reserved.</p>
+        </div>
+    </footer>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+
+        if (menuToggle && mainNav) {
+            menuToggle.addEventListener('click', function () {
+                mainNav.classList.toggle('active');
+                menuToggle.classList.toggle('active');
+            });
+        }
+
+        // User dropdown toggle
+        const userMenuToggle = document.querySelector('.user-menu-toggle');
+
+        if (userMenuToggle) {
+            userMenuToggle.addEventListener('click', function (e) {
+                e.preventDefault();
+                this.closest('.user-dropdown').classList.toggle('active');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function (e) {
+                const dropdown = document.querySelector('.user-dropdown');
+                if (dropdown && !dropdown.contains(e.target)) {
+                    dropdown.classList.remove('active');
+                }
+            });
+        }
+    });
+</script>
+
 @stack('scripts')
 </body>
 </html>

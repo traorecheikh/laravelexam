@@ -9,6 +9,6 @@ class BurgerSeeder extends Seeder
 {
     public function run()
     {
-        Burger::factory()->count(20)->create();
+        Burger::factory()->count(12)->create();
     }
 }

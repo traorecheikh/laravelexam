@@ -3,12 +3,11 @@
 namespace App\Notifications;
 
 use App\Models\Commande;
-use Barryvdh\DomPDF\PDF;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class OrderConfirmed extends Notification
+class OrderPaid extends Notification
 {
     use Queueable;
 
@@ -46,22 +45,14 @@ class OrderConfirmed extends Notification
     {
         $commande = $this->commande;
 
-
-        $pdf = app(PDF::class)->loadView('invoices.facture', compact('commande')); // 'invoices.facture' is the Blade view to generate the PDF
-
-        $pdfContent = $pdf->output();
-
         return (new MailMessage)
-            ->subject('Votre commande a été validée ')
+            ->subject('Paiement de votre commande confirmé')
             ->greeting('Bonjour ' . $notifiable->name)
-            ->line('Nous vous informons que votre commande #' . $commande->id . ' a été validée')
+            ->line('Nous avons bien reçu le paiement pour votre commande #' . $commande->id)
             ->line('Statut de la commande: ' . $commande->statut)
-            ->line('Total: ' . number_format($commande->total) . ' CFA')
+            ->line('Montant payé: ' . number_format($commande->total) . ' CFA')
             ->action('Voir la commande', route('commande.show', $commande))
-            ->line('Merci pour valider votre achat!')
-            ->attachData($pdfContent, 'facture-' . $commande->id . '.pdf', [
-                'mime' => 'application/pdf',
-            ]);
+            ->line('Merci pour votre paiement! Nous vous souhaitons une excellente journée.');
     }
 
     /**
